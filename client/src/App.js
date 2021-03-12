@@ -1,10 +1,10 @@
-import './App.css';
 import {BrowserRouter,Route} from 'react-router-dom'
-import Login from './components/login';
 import Navbar from './components/navbar'
-import PlaceOrder from './components/placeOrder';
-import Register from './components/register';
-import ViewOrder from './components/viewOrder'
+import Login from './components/auth/login';
+import Register from './components/auth/register';
+import PlaceOrder from './components/orders/placeOrder';
+import ViewOrder from './components/orders/viewOrder'
+import AddItems from './components/menu/addItems'
 
 function App() {
   return (
@@ -12,10 +12,12 @@ function App() {
           <BrowserRouter>
 
             <Route exact path="/">
+              <Navbar />
               <Login />
             </Route>
-            
+
             <Route path="/register">
+              <Navbar />
               <Register />
             </Route>
 
@@ -28,7 +30,12 @@ function App() {
               <Navbar />
               <ViewOrder />
             </Route>
-      
+
+            <Route path="/addItems">
+              <Navbar />
+              <AddItems />
+            </Route>
+
       </BrowserRouter>
     </div>
   );

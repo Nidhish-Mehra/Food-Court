@@ -31,18 +31,18 @@ function Login() {
           }
     return (
           <div className="card" style={{maxWidth:'500px', padding: '10px' ,margin: '200px auto', textAlign: 'center'}}>
-              <input 
-              placeholder="name" 
-              type="text" 
-              value={name} 
+              <input
+              placeholder="name"
+              type="text"
+              value={name}
               onChange={(e)=>{
                   setName(e.target.value)
                 }}
               />
-              <input 
-              placeholder="password" 
+              <input
+              placeholder="password"
               type="password"
-              value={password} 
+              value={password}
               onChange={(e)=>{
                   setPassword(e.target.value)
                 }}
@@ -55,5 +55,5 @@ function Login() {
           </div>
     );
   }
-  
+
   export default Login;
