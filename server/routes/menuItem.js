@@ -2,34 +2,11 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const requireSignin = require('../middleware/requireSignin')
-const menuItem = mongoose.model("menuItem")
+const menuItem = require('../models/menuItem')
+const { getMenuItems,createMenuItem } =require('../controllers/menuItems')
 
-router.get('./getMenuItems',requireSignin,(req,res)=>{
-    menuItem.find()
-    .then(menu=>{
-        res.json({menu:menu})
-    })
-    .catch(error=>{
-        console.log(error)
-    })
-})
+router.get('/getMenuItems',getMenuItems)
 
-router.post('./createMenuItem',requireSignin,(req,res)=>{
-    const {itemName,itemPrice} = req.body
-    if(!itemName || !itemPrice){
-        return res.status(422).json({error:"Please add all the fields"})
-    }
-    const newItem = new menuItem({
-        itemName,
-        itemPrice
-    })
-    newItem.save().then(result=>{
-        res.json({menuItem:result})
-    })
-    .catch(error=>{
-        console.log(error)
-    })
+router.post('/createMenuItem',requireSignin,createMenuItem)
 
-})
-
-module.exports = router
+module.exports = router;

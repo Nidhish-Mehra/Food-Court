@@ -1,0 +1,25 @@
+{
+  "name": "food-court",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"concurrently \"cd server && npm run dev\" \"cd client && npm start\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nidhish-Mehra/Food-Court.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nidhish-Mehra/Food-Court/issues"
+  },
+  "homepage": "https://github.com/Nidhish-Mehra/Food-Court#readme",
+  "dependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
+}

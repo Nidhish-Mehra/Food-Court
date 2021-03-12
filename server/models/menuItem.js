@@ -15,4 +15,4 @@ const menuItemSchema = new mongoose.Schema({
     }
 })
 
-mongoose.model("menuItem",menuItemSchema)
+module.exports = mongoose.model("menuItem",menuItemSchema)

@@ -3,20 +3,24 @@ const app = express()
 const mongoose = require('mongoose')
 const PORT = 5000
 const { MONGOURI } = require('./keys')
+const authRoute = require('./routes/auth')
+const menuItemRoute =require('./routes/menuItem')
+const orderRoute =require('./routes/order')
+const User = require('./models/user')
+
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
 
-require('./models/user')
 require('./models/menuItem')
 require('./models/order')
-
 app.use(express.json())
-app.use(require('./routes/auth'))
-app.use(require('./routes/menuItem'))
-app.use(require('./routes/order'))
+
+app.use('/',authRoute)
+app.use('/',menuItemRoute)
+app.use('/',orderRoute)
 
 mongoose.connection.on('connected',()=>{
     console.log("successfully connected to the database")
