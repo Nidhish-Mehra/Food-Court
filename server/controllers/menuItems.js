@@ -20,10 +20,24 @@ module.exports.createMenuItem = (req,res)=>{
         itemPrice
     })
     newItem.save().then(result=>{
-        res.json({menuItem:result})
+        console.log(result)
+        res.json(result)
     })
     .catch(error=>{
         console.log(error)
     })
+}
 
+module.exports.deleteMenuItem = async (req,res)=>{
+ try{
+    const {itemName} = req.body
+    if(!itemName){
+        return res.status(422).json({error:"Please add all the fields"})
+    }
+    await menuItem.findOneAndDelete({itemName:itemName})
+    const result = await menuItem.find()
+    res.json(result)
+    }catch(error){
+        console.log(error)
+    }
 }
