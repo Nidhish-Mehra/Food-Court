@@ -9,7 +9,7 @@ function ViewOrder() {
   const day = String(dateObj.getDate()).padStart(2, '0');
   const year = dateObj.getFullYear();
   const output = month  + '\n'+ day  + ',' + year;
-  let totalPrice = 0;
+  let totalPrice=0 ;
 
   const [order,setOrder] = useState([])
   const [menu,setMenu] = useState([])
@@ -48,9 +48,11 @@ function ViewOrder() {
           M.toast({html:data.error, classes:"#c62828 red darken-3"})
         }
         else{
-          setOrder(data);
-          console.log(order)
+          setOrder((prevState)=>{
+              return [...prevState,...data]
+          });
           M.toast({html: "Retrived Successfully", classes:"#43a047 green darken-1"})
+          console.log(order)
         }
       }
       catch(error){
@@ -61,7 +63,6 @@ function ViewOrder() {
   useEffect(()=>{
     getMenuItems();
     getOrders();
-    console.log(order);
   },[])
 
   return (
@@ -75,27 +76,36 @@ function ViewOrder() {
                   <table className='striped responsive'>
                     <thead>
                       <tr>
-                          <th>Customer Name</th>
-                          <th>Item Name</th>
-                          <th>Item Quantity</th>
-                          <th>Completed</th>
+                        <th>Customer Name</th>
+                        <th>Item Name</th>
+                        <th>Item Quantity</th>
+                        <th>Item Price</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
 
                     <tbody>
-                      <tr>
-                        <td>Alvin</td>
-                        <td>Eclair</td>
-                        <td>$0.87</td>
-                        <td>
-                        <p>
-                          <label htmlFor='check'>
-                            <input id='check' type="checkbox" className="filled-in" />
-                            <span onChange={()=>{console.log('Hi')}}>Completed?</span>
-                          </label>
-                        </p>
-                        </td>
-                      </tr>
+                    {order.length>0 && order.map((item)=>{
+                      return(
+                          item.orderDetails.map((component)=>{
+                            return(
+                              <tr key={Date.now()}>
+                                <td>{item.orderedBy}</td>
+                                <td>{component.itemName}</td>
+                                <td>{component.itemQuantity}</td>
+                                <td>{component.itemPrice}</td>
+                                <td>{item.orderTotal}</td>
+                              </tr>
+                            )
+                            })
+                    )})}
+                    <tr>
+                      <td>Total </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
+                    </tr>
                     </tbody>
                   </table>
               </div>
@@ -107,28 +117,35 @@ function ViewOrder() {
                 <table className='striped responsive'>
                   <thead>
                     <tr>
+                      <th>Customer Name</th>
                       <th>Item Name</th>
-                      <th>Item Price</th>
                       <th>Item Quantity</th>
+                      <th>Item Price</th>
                       <th>Total</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                  {order.map((item)=>{
+                  {order.length>0 && order.map((item)=>{
                       return(
-                        <tr>
-                          <td>{item.itemName}</td>
-                          <td>{item.itemPrice}</td>
-                          <td>{}</td>
-                          <td>{}</td>
-                      </tr>
+                          item.orderDetails.map((component)=>{
+                            return(
+                              <tr key={Date.now()}>
+                                <td>{item.orderedBy}</td>
+                                <td>{component.itemName}</td>
+                                <td>{component.itemQuantity}</td>
+                                <td>{component.itemPrice}</td>
+                                <td>{item.orderTotal}</td>
+                              </tr>
+                            )
+                            })
                     )})}
                     <tr>
                       <td>Total </td>
                       <td></td>
                       <td></td>
-                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.itemPrice) : totalPrice}</td>
+                      <td></td>
+                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -141,28 +158,35 @@ function ViewOrder() {
                 <table className='striped responsive'>
                   <thead>
                     <tr>
+                    <th>Customer Name</th>
                       <th>Item Name</th>
-                      <th>Item Price</th>
                       <th>Item Quantity</th>
+                      <th>Item Price</th>
                       <th>Total</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                  {order.map((item)=>{
+                  {order.length>0 && order.map((item)=>{
                       return(
-                        <tr>
-                          <td>{item.itemName}</td>
-                          <td>{item.itemPrice}</td>
-                          <td>{}</td>
-                          <td>{}</td>
-                      </tr>
+                          item.orderDetails.map((component)=>{
+                            return(
+                              <tr key={Date.now()}>
+                                <td>{item.orderedBy}</td>
+                                <td>{component.itemName}</td>
+                                <td>{component.itemQuantity}</td>
+                                <td>{component.itemPrice}</td>
+                                <td>{item.orderTotal}</td>
+                              </tr>
+                            )
+                            })
                     )})}
                     <tr>
                       <td>Total </td>
                       <td></td>
                       <td></td>
-                      <td>{order.length>0 ? order.map((item)=> totalPrice = totalPrice + item.itemPrice) : totalPrice}</td>
+                      <td></td>
+                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
                     </tr>
                   </tbody>
                 </table>
