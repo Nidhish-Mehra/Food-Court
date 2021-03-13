@@ -12,13 +12,14 @@ module.exports.getOrders = (req,res)=>{
 }
 
 module.exports.createOrder = (req,res)=>{
-    const{ orderedBy , orderDetails } = req.body
-    if(!orderedBy || !orderDetails){
+    const{ orderedBy , orderDetails  } = req.body
+    if(!orderedBy || !orderDetails || !orderDate){
         return res.status(422).json({error:"Order not placed"})
     }
     const newOrder = new Order({
         orderedBy,
-        orderDetails
+        orderDetails,
+        orderDate
     })
     newOrder.save().then(PlacedOrder=>{
         res.json({newOrder:PlacedOrder})

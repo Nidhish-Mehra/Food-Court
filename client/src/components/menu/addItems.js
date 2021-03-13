@@ -6,7 +6,7 @@ function AddItems() {
     const [menu,setMenu] = useState([])
     const [itemName,setItemName] = useState('')
     const [itemPrice,setItemPrice] = useState('')
-
+    const [loading,setLoading] = useState(false)
     const getMenuItems =async ()=>{
        try{
             const response = await fetch('/getMenuItems')
@@ -16,7 +16,7 @@ function AddItems() {
             }
             else{
                 setMenu(data);
-                M.toast({html: 'Retrived Menu Successfully', classes:'#43a047 green darken-1'})
+                M.toast({html: 'Retrived Menu Items Successfully', classes:'#43a047 green darken-1'})
             }
         }catch(error){
             console.log(error)
@@ -53,6 +53,7 @@ function AddItems() {
 
     const deleteMenuItem = async(itemName)=> {
         try{
+            setLoading(true)
             const res = await fetch('/deleteMenuItem',{
                 method:'post',
                 headers:{
@@ -68,6 +69,7 @@ function AddItems() {
             }
             else{
                 setMenu(data)
+                setLoading(false)
                 M.toast({html: 'Item Deleted Successfully', classes:'#43a047 green darken-1'})
             }
         }catch(error){
@@ -82,12 +84,15 @@ function AddItems() {
     return (
         <>
         <div className='container'>
-        <div className='row'>
-                <div className='row'>
-                    <div className='input-field col s4'>
+            <div className='row'>
+                <div className='row section'>
+                    <h4>Add Item</h4>
+                    <div className='divider'></div>
+                    <div className='input-field col s12'>
                         <label htmlFor='itemName'>Item Name</label>
                         <input
-                            placeholder='name'
+                            required
+                            id='itemName'
                             type='text'
                             value={itemName}
                             onChange={(e)=>{
@@ -95,51 +100,58 @@ function AddItems() {
                                 }}
                             />
                     </div>
-                    <div className='input-field col s4'>
+                    <div className='input-field col s12'>
                         <label htmlFor='itemPrice'>Item Price</label>
                         <input
-                            placeholder='name'
-                            type='text'
+                            required
+                            id='itemPrice'
+                            type='number'
                             value={itemPrice}
                             onChange={(e)=>{
                                 setItemPrice(e.target.value)
                                 }}
                             />
                     </div>
-                    <div className='input-field col s4'>
-                    <button className='waves-effect waves-light btn large-btn'
+                    <div className='input-field col s12'>
+                    <button className='blue btn'
                             onClick={()=>createItem()}
                             >
                                 Add
                             </button>
                     </div>
                 </div>
-        </div>
+
+            </div>
         </div>
         <div className='container'>
             <div className='row'>
-            {menu.map((item)=>{
-                return(
-                    <div className='col s4' key={item._id}>
-                         <div className='card-panel' key={item._id}>
-                            <div className='row'>
-                                <div className='col s6'>
-                                    <h6>{item.itemName} ₹{item.itemPrice} </h6>
-                                </div>
+            <h4>All Items</h4>
+            <div className='divider'></div>
+                <div className='section'>
+                    {menu.map((item)=>{
+                        return(
+                                <div className='col s3' key={item._id}>
+                                <div className='card-panel' key={item._id}>
+                                    <div className='row'>
+                                        <div className='col s6'>
+                                            <h6>{item.itemName} ₹{item.itemPrice}  </h6>
 
-                                <div className='col s6'>
-                                    <input
-                                        className='btn pink large-btn'
-                                        type='button'
-                                        name={item.itemName}
-                                        value='Delete'
-                                        onClick={(e)=>{deleteMenuItem(e.target.name)}}></input>
+                                        </div>
+
+                                        <div className='col s6'>
+                                            <input
+                                                className={loading ? 'btn red large-btn disabled' : 'btn red large-btn' }
+                                                type='button'
+                                                name={item.itemName}
+                                                value='Delete'
+                                                onClick={(e)=>{deleteMenuItem(e.target.name)}}></input>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                    </div>
-                    </div>
-                )
-            })}
+                        )
+                    })}
+                </div>
             </div>
         </div>
         </>

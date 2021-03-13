@@ -5,24 +5,50 @@ function PlaceOrder() {
     const [menu,setMenu] = useState([])
     const [order,setOrder] = useState([])
     const [value,setValue] = useState(0)
-    const getMenuItems = ()=>{
-        fetch("/getMenuItems",{
-            method:"get",
-            headers:{
-                "Content-Type":"application/json"
-            }
-        }).then(res=>res.json())
-        .then(data=>{
+    const getMenuItems = async ()=>{
+        try{
+             const response = await fetch('/getMenuItems')
+             const data = await response.json()
+             if(data.error){
+                 M.toast({html:data.error, classes:'#c62828 red darken-3'})
+             }
+             else{
+                 console.log(data)
+                 setMenu(data);
+                 M.toast({html: 'Retrived Menu Items Successfully', classes:'#43a047 green darken-1'})
+             }
+         }catch(error){
+             console.log(error)
+         }
+    }
+
+    const createItem = async()=>{
+        try{
+            const date = new Date();
+            const orderDate = date.toISOString();
+            const res = await fetch('/createMenuItem',{
+                method:'post',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    orderDate
+                })
+            })
+            const data = await res.json()
             if(data.error){
-                M.toast({html:data.error, classes:"#c62828 red darken-3"})
+                M.toast({html:data.error, classes:'#c62828 red darken-3'})
             }
             else{
-                setMenu(data);
-                M.toast({html: "Retrived Order Successfully", classes:"#43a047 green darken-1"})
+                setMenu((prevState)=>{
+                    return [...prevState,data]
+                })
+                console.log(menu)
+                M.toast({html: 'Menu Item Created Successfully', classes:'#43a047 green darken-1'})
             }
-        }).catch(error=>{
+        }catch(error){
             console.log(error)
-        })
+        }
     }
 
     useEffect(()=>{
@@ -43,16 +69,42 @@ function PlaceOrder() {
     return (
         <>
         <div className='container'>
-            {menu.map((item)=>{
-                return(
-                    <div className='card' key={item._id}>
-                        <h4>Itemname : {item.itemName} </h4>
-                        <h4> Price {item.itemPrice}</h4>
-                        <input type='number' placeholder='Number of plates' name={item.itemName} min='0'></input>
+            <div className='row'>
+                <div className='row section'>
+                    <h4>Customer Details</h4>
+                    <div className='divider'></div>
+                    <div className='input-field col s12'>
+                        <label htmlFor='custName'>Customer Name</label>
+                        <input
+                            id='itemName'
+                            type='text'
+                            />
                     </div>
-                )
-            })}
-            <input type='submit' onClick='handeOrder'></input>
+                </div>
+            </div>
+        </div>
+        <div className='container'>
+            <div className='row'>
+            <h4>All Items</h4>
+            <div className='divider'></div>
+                <div className='section'>
+                    {menu.map((item)=>{
+                        return(
+                                <div className='col s3' key={item._id}>
+                                <div className='card-panel' key={item._id}>
+                                    <div className='row'>
+                                        <div className='col s6'>
+                                            <h6>{item.itemName} ₹{item.itemPrice}</h6>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
         </div>
         </>
     );

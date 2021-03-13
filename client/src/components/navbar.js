@@ -3,7 +3,7 @@
 function Navbar() {
   return (
     <div>
-        <nav>
+        <nav className='blue'>
             <div className="nav-wrapper container">
             <a href="/placeOrder" className="brand-logo">Food Court</a>
             <a href="#!" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>

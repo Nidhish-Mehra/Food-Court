@@ -8,7 +8,7 @@ import AddItems from './components/menu/addItems'
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" >
           <BrowserRouter>
 
             <Route exact path="/">

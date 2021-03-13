@@ -28,7 +28,7 @@ function ViewOrder() {
       }
       else{
         setMenu(data);
-        M.toast({html: "Retrived Menu Successfully", classes:"#43a047 green darken-1"})
+        M.toast({html: "Retrived Order Details Successfully", classes:"#43a047 green darken-1"})
       }
     }catch(error){
       console.log(error)
@@ -50,7 +50,7 @@ function ViewOrder() {
         else{
           setOrder(data);
           console.log(order)
-          M.toast({html: "Retrived Order Successfully", classes:"#43a047 green darken-1"})
+          M.toast({html: "Retrived Successfully", classes:"#43a047 green darken-1"})
         }
       }
       catch(error){

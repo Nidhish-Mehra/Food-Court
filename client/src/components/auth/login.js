@@ -35,6 +35,7 @@ function Login() {
               placeholder="name"
               type="text"
               value={name}
+              autoComplete='off'
               onChange={(e)=>{
                   setName(e.target.value)
                 }}
@@ -43,6 +44,7 @@ function Login() {
               placeholder="password"
               type="password"
               value={password}
+              autoComplete='off'
               onChange={(e)=>{
                   setPassword(e.target.value)
                 }}
