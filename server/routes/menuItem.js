@@ -7,6 +7,6 @@ const { getMenuItems,createMenuItem } =require('../controllers/menuItems')
 
 router.get('/getMenuItems',getMenuItems)
 
-router.post('/createMenuItem',requireSignin,createMenuItem)
+router.post('/createMenuItem',createMenuItem)
 
 module.exports = router;
