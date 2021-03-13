@@ -22,18 +22,6 @@ function AddItems() {
             console.log(error)
         }
     }
-<<<<<<< HEAD
-    const createItem = ()=>{
-        fetch("/createMenuItem",{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json",
-                "Authorization":"Bearer "+localStorage.getItem("jwt")
-            },
-            body:JSON.stringify({
-                itemName,
-                itemPrice
-=======
 
     const createItem = async()=>{
         try{
@@ -74,7 +62,6 @@ function AddItems() {
                 body:JSON.stringify({
                     itemName
                 })
->>>>>>> 391a8fe1ca5484c37aab5e4ff1d605cc62125cfd
             })
             const data = await res.json()
             if(data.error){
