@@ -8,10 +8,6 @@ const menuItemSchema = new mongoose.Schema({
     itemPrice:{
         type: Number,
         required : true
-    },
-    photo:{
-        type : String,
-        default : "no Photo"
     }
 })
 
