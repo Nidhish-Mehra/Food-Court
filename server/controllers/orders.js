@@ -1,6 +1,7 @@
 const Order = require('../models/order')
 
 module.exports.getOrders = (req,res)=>{
+    console.log("Hi")
     Order.find()
     .then(orders=>{
         res.json({orders})
@@ -11,7 +12,7 @@ module.exports.getOrders = (req,res)=>{
 }
 
 module.exports.createOrder = (req,res)=>{
-    const{ orderedBy , orderDetails } =req.body
+    const{ orderedBy , orderDetails } = req.body
     if(!orderedBy || !orderDetails){
         return res.status(422).json({error:"Order not placed"})
     }

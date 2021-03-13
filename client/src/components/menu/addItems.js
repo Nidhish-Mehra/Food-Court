@@ -66,20 +66,26 @@ function AddItems() {
                         <input id="itemPrice" type="text" className="validate" onChange={(e)=>{setItemPrice(e.target.value)}}></input>
                     </div>
                     <div className="input-field col s4">
-                        <input id="itemPrice" type="submit" className="validate btn" onClick={createItem}></input>
+                        <button id="itemPrice" type="submit" className="validate btn" onClick={createItem}>
+                            Submit
+                            <i class="material-icons right">send</i>
+                        </button>
                     </div>
                 </div>
         </div>
         </div>
         <div className='container'>
+            <div className='row'>
             {menu.map((item)=>{
                 return(
-                    <div className='card' key={item._id}>
-                        <h4>Itemname : {item.itemName} </h4>
-                        <h4> Price {item.itemPrice}</h4>
+                    <div className='col s3'>
+                         <div className='card-panel' key={item._id}>
+                            <h5>{item.itemName} ₹{item.itemPrice} </h5>
+                    </div>
                     </div>
                 )
             })}
+            </div>
         </div>
         </>
     );

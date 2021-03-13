@@ -3,7 +3,7 @@ import M from 'materialize-css'
 
 function PlaceOrder() {
     const [menu,setMenu] = useState([])
-    const [order,setOrder] = useState({})
+    const [order,setOrder] = useState([])
     const [value,setValue] = useState(0)
     const getMenuItems = ()=>{
         fetch("/getMenuItems",{
