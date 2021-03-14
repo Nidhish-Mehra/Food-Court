@@ -10,12 +10,18 @@ function ViewOrder() {
   const year = dateObj.getFullYear();
   const output = month  + '\n'+ day  + ',' + year;
   let totalPrice=0 ;
+  let itemQuantity=0 ;
+  let itemPrice=0 ;
+  let itemTotal=0 ;
+  let found=false;
 
   const [order,setOrder] = useState({
     todayOrders : [],
     tenMinuteOrders : [],
     prevWeekOrders : []
   })
+
+  const [menu,setMenu] = useState([])
 
   const getOrders = async()=>{
       try{
@@ -31,7 +37,7 @@ function ViewOrder() {
         }
         else{
           setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
-          M.toast({html: "Retrived Successfully", classes:"#43a047 green darken-1"})
+          M.toast({html: "Retrived Orders Successfully", classes:"#43a047 green darken-1"})
         }
       }
       catch(error){
@@ -39,12 +45,30 @@ function ViewOrder() {
       }
   }
 
+  const getMenuItems =async ()=>{
+    try{
+         const response = await fetch('/getMenuItems')
+         const data = await response.json()
+         if(data.error){
+             M.toast({html:data.error, classes:'#c62828 red darken-3'})
+         }
+         else{
+            const newMenu  = data.map((item) => item.itemName)
+            setMenu(newMenu);
+            M.toast({html: 'Retrived Menu Items Successfully', classes:'#43a047 green darken-1'})
+         }
+     }catch(error){
+         console.log(error)
+     }
+ }
+
   useEffect(()=>{
     getOrders()
+    getMenuItems()
   },[])
 
   return (
-      <>{console.log(order)}
+      <>
       <div className='container'>
         <div className='row'>
         <div className='col s12'>
@@ -63,7 +87,7 @@ function ViewOrder() {
                     </thead>
 
                     <tbody>
-                    {order.tenMinuteOrders.length>0 && order.tenMinuteOrders.map((item)=>{
+                    {order.tenMinuteOrders.map((item)=>{
                       return(
                           item.orderDetails.map((component)=>{
                             return(
@@ -103,7 +127,7 @@ function ViewOrder() {
                   </thead>
 
                   <tbody>
-                  {order.todayOrders.length>0 && order.todayOrders.map((item)=>{
+                  {order.todayOrders.map((item)=>{
                       return(
                           item.orderDetails.map((component)=>{
                             return(
@@ -130,10 +154,9 @@ function ViewOrder() {
             <div className='todaysSale section'>
               <h4>Sale in last - <strong>7 days</strong></h4>
               <div className='divider'></div>
-                <table className='striped responsive'>
+              <table className='striped responsive'>
                   <thead>
                     <tr>
-                    <th>Customer Name</th>
                       <th>Item Name</th>
                       <th>Item Quantity</th>
                       <th>Item Price</th>
@@ -142,26 +165,39 @@ function ViewOrder() {
                   </thead>
 
                   <tbody>
-                  {order.prevWeekOrders.length>0 && order.prevWeekOrders.map((item)=>{
-                      return(
-                          item.orderDetails.map((component)=>{
-                            return(
-                              <tr key={Date.now()}>
-                                <td>{item.orderedBy}</td>
-                                <td>{component.itemName}</td>
-                                <td>{component.itemQuantity}</td>
-                                <td>{component.itemPrice}</td>
-                                <td>{item.orderTotal}</td>
-                              </tr>
-                            )
+                  {menu.map((menuItem)=>{
+                    return(
+                      <tr key={Date.now()}>
+                        <td>{menuItem}</td>
+                          {order.prevWeekOrders.map((item)=>{
+                            item.orderDetails.map((component)=>{
+                              console.log(component.itemName,menuItem)
+                              if(component.itemName == menuItem){
+                                console.log("if above same then dekho")
+                                itemQuantity = itemQuantity + component.itemQuantity
+                                itemPrice = itemPrice + component.itemPrice
+                                itemTotal = itemQuantity*itemPrice
+                                found = true
+                              }
+                              else if(!found){
+                                itemQuantity = 0
+                                itemPrice = 0
+                                itemTotal = 0
+                              }
                             })
-                    )})}
+                          })
+                          }
+                        <td>{itemQuantity}</td>
+                        <td>{itemPrice}</td>
+                        <td>{itemTotal}</td>
+                      </tr>
+                    )
+                  })}
                     <tr>
                       <td>Total </td>
                       <td></td>
                       <td></td>
-                      <td></td>
-                      <td>{order.prevWeekOrders.length>0 ? order.prevWeekOrders.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
+                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
                     </tr>
                   </tbody>
                 </table>

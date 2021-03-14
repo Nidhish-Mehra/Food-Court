@@ -3,14 +3,11 @@ const Order = require('../models/order')
 
 module.exports.getOrders = async (req,res)=>{
     const date = new Date();
-    const todayDate = new Date(date.getTime());
+    const indianTimeOffset = 5*60*60*1000 + 0.5*60*60*1000
+    const todayDate = new Date(date.getTime()+indianTimeOffset);
     const yesterdayDate = new Date(todayDate.toISOString().slice(0,10));
-    const tenMinuteDate = new Date(date.getTime() - (10*60*1000))
-    const prevWeekDate = new Date(date.getTime() - (7*24*60*60*1000))
-    // const yesterdayDate = new Date(date.getTime() -(24*60*60*1000));
-    // console.log('Today Date is',yesterdayDate)
-    // console.log('Ten Date is',tenMinuteDate)
-    // console.log('prev week Date is',prevWeekDate)
+    const tenMinuteDate = new Date(date.getTime() - (10*60*1000) + indianTimeOffset)
+    const prevWeekDate = new Date(date.getTime() - (7*24*60*60*1000) + indianTimeOffset)
     try{
         const todayOrders = await Order.find({"orderDate":{$gt:yesterdayDate}})
         const tenMinuteOrders = await Order.find({"orderDate":{$gt:tenMinuteDate}})

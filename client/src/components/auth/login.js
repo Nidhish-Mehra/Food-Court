@@ -37,33 +37,38 @@ function Login() {
               })
           }
     return (
-          <div className="card" style={{maxWidth:'500px', padding: '10px' ,margin: '200px auto', textAlign: 'center'}}>
-              <input
-              placeholder="name"
-              type="text"
-              value={name}
-              autoComplete='off'
-              required
-              onChange={(e)=>{
-                  setName(e.target.value)
-                }}
-              />
-              <input
-              placeholder="password"
-              type="password"
-              value={password}
-              autoComplete='off'
-              required
-              onChange={(e)=>{
-                  setPassword(e.target.value)
-                }}
-              />
-              <button className={loading? 'waves-effect waves-light btn large-btn disabled' : 'waves-effect waves-light btn large-btn'}
-              onClick={()=>signInUser()}
-              >
-                  Sign IN
-              </button>
-          </div>
+        <div className="card row" style={{maxWidth:'500px', padding: '10px' ,margin: '200px auto',textAlign:'center'}}>
+            <div className='input-field col s12'>
+                <input
+                    placeholder='Name'
+                    id='name'
+                    type="text"
+                    value={name}
+                    autoComplete='off'
+                    required
+                    onChange={(e)=>{setName(e.target.value)}}
+                />
+            </div>
+            <div className='input-field col s12'>
+                <input
+                    placeholder='Password'
+                    id='password'
+                    type="password"
+                    value={password}
+                    autoComplete='off'
+                    required
+                    onChange={(e)=>{
+                        setPassword(e.target.value)
+                    }}
+                />
+            </div>
+            <div className='input-field col s12'>
+                <button style={{width:'100%'}}
+                    className={loading? 'waves-effect waves-light btn large-btn disabled' : 'waves-effect waves-light btn large-btn'}
+                    onClick={()=>signInUser()}>Sign IN
+                </button>
+            </div>
+        </div>
     );
   }
 
