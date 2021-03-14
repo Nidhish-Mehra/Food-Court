@@ -11,30 +11,11 @@ function ViewOrder() {
   const output = month  + '\n'+ day  + ',' + year;
   let totalPrice=0 ;
 
-  const [order,setOrder] = useState([])
-  const [menu,setMenu] = useState([])
-
-  const getMenuItems = async()=>{
-    try{
-
-      const res = await fetch("/getMenuItems",{
-        method:"get",
-        headers:{
-            "Content-Type":"application/json"
-        }
-      })
-      const data = await res.json()
-      if(data.error){
-        M.toast({html:data.error, classes:"#c62828 red darken-3"})
-      }
-      else{
-        setMenu(data);
-        M.toast({html: "Retrived Order Details Successfully", classes:"#43a047 green darken-1"})
-      }
-    }catch(error){
-      console.log(error)
-    }
-  }
+  const [order,setOrder] = useState({
+    todayOrders : [],
+    tenMinuteOrders : [],
+    prevWeekOrders : []
+  })
 
   const getOrders = async()=>{
       try{
@@ -49,11 +30,8 @@ function ViewOrder() {
           M.toast({html:data.error, classes:"#c62828 red darken-3"})
         }
         else{
-          setOrder((prevState)=>{
-              return [...prevState,data]
-          });
+          setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
           M.toast({html: "Retrived Successfully", classes:"#43a047 green darken-1"})
-          console.log(data)
         }
       }
       catch(error){
@@ -62,12 +40,11 @@ function ViewOrder() {
   }
 
   useEffect(()=>{
-    getMenuItems();
-    getOrders();
+    getOrders()
   },[])
 
   return (
-      <>
+      <>{console.log(order)}
       <div className='container'>
         <div className='row'>
         <div className='col s12'>
@@ -187,7 +164,7 @@ function ViewOrder() {
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
+                      <td>{order.prevWeekOrders.length>0 ? order.prevWeekOrders.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
                     </tr>
                   </tbody>
                 </table>
