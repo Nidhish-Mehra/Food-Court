@@ -7,7 +7,7 @@ const { getMenuItems,createMenuItem,deleteMenuItem } =require('../controllers/me
 
 router.get('/getMenuItems',getMenuItems)
 
-router.post('/createMenuItem',createMenuItem)
+router.post('/createMenuItem',requireSignin,createMenuItem)
 router.post('/deleteMenuItem',deleteMenuItem)
 
 module.exports = router;

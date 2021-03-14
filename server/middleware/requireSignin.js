@@ -4,11 +4,11 @@ const mongoose = require('mongoose')
 const User = mongoose.model("User")
 
 module.exports = (req,res,next)=>{
-     const {Authorization} = req.headers
-     if(!Authorization){
+     const {authorization} = req.headers
+     if(!authorization){
          return res.status(401).json({error:"You must be signed in"})
      }
-     const token = Authorization.replace("Bearer ","")
+     const token = authorization.replace("Bearer ","")
      jwt.verify(token,JWT_KEY,(error,payload)=>{
          if(error){
              return res.status(401).json({error: "You must be signed in"})
