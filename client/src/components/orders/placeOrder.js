@@ -6,9 +6,9 @@ function PlaceOrder() {
     const [order,setOrder] = useState([])
     const [value,setValue] = useState(0)
 
-    const getMenuItems = async ()=>{
+    const getMenuItems = async (currentTime)=>{
         try{
-             const response = await fetch('/getMenuItems')
+            const response = await fetch('/getMenuItems')
              const data = await response.json()
              if(data.error){
                  M.toast({html:data.error, classes:'#c62828 red darken-3'})
@@ -56,17 +56,6 @@ function PlaceOrder() {
         getMenuItems();
     },[])
 
-    const handleOrder =(e)=> {
-        const newOrder = {
-            itemName:'',
-            quantity:0,
-        };
-        if(newOrder.itemName !== e.target.name){
-            newOrder.quantity = e.target.value
-        }
-        console.log(newOrder)
-    }
-
     return (
         <>
         <div className='container'>
@@ -96,8 +85,6 @@ function PlaceOrder() {
                                     <div className='row'>
                                         <div className='col s6'>
                                             <h6>{item.itemName} ₹{item.itemPrice}</h6>
-
-
                                         </div>
                                     </div>
                                 </div>

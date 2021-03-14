@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const requireSignin = require('../middleware/requireSignin')
 const { getOrders, createOrder } = require('../controllers/orders')
 
-router.get('/getOrders',requireSignin,getOrders)
+router.get('/getOrders',getOrders)
 
-router.post('/createOrder',requireSignin,createOrder)
+router.post('/createOrder',createOrder)
 
 module.exports = router

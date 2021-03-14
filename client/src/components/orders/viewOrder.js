@@ -16,6 +16,7 @@ function ViewOrder() {
 
   const getMenuItems = async()=>{
     try{
+
       const res = await fetch("/getMenuItems",{
         method:"get",
         headers:{
@@ -49,10 +50,10 @@ function ViewOrder() {
         }
         else{
           setOrder((prevState)=>{
-              return [...prevState,...data]
+              return [...prevState,data]
           });
           M.toast({html: "Retrived Successfully", classes:"#43a047 green darken-1"})
-          console.log(order)
+          console.log(data)
         }
       }
       catch(error){
@@ -85,7 +86,7 @@ function ViewOrder() {
                     </thead>
 
                     <tbody>
-                    {order.length>0 && order.map((item)=>{
+                    {order.tenMinuteOrders.length>0 && order.tenMinuteOrders.map((item)=>{
                       return(
                           item.orderDetails.map((component)=>{
                             return(
@@ -126,7 +127,7 @@ function ViewOrder() {
                   </thead>
 
                   <tbody>
-                  {order.length>0 && order.map((item)=>{
+                  {order.todayOrders.length>0 && order.todayOrders.map((item)=>{
                       return(
                           item.orderDetails.map((component)=>{
                             return(
@@ -167,7 +168,7 @@ function ViewOrder() {
                   </thead>
 
                   <tbody>
-                  {order.length>0 && order.map((item)=>{
+                  {order.prevWeekOrders.length>0 && order.prevWeekOrders.map((item)=>{
                       return(
                           item.orderDetails.map((component)=>{
                             return(

@@ -7,18 +7,23 @@ const orderSchema = new mongoose.Schema({
     },
     orderDetails:[
         {
-            menuItem:{
-                type:ObjectId,
-                ref:"menuItem"
+            itemName:{
+                type:String,
             },
-            quantity:{
+            itemPrice:{
                 type:Number,
-                required:true
+            },
+            itemQuantity:{
+                type:Number
             }
         }
     ],
+    total:{
+        type:Number,
+        required:true
+    },
     orderDate:{
-        type:String,
+        type:Date,
         required:true
     }
 })
