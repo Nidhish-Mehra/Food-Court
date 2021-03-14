@@ -2,18 +2,24 @@ import { useState,useEffect } from 'react'
 import M from 'materialize-css'
 
 function ViewOrder() {
+
   const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"];
   const dateObj = new Date();
   const month = monthNames[dateObj.getMonth()];
   const day = String(dateObj.getDate()).padStart(2, '0');
   const year = dateObj.getFullYear();
+
   const output = month  + '\n'+ day  + ',' + year;
+
   let totalPrice=0 ;
   let itemQuantity=0 ;
   let itemPrice=0 ;
   let itemTotal=0 ;
-  let found=false;
+  let finalTotal = 0
+  let finalQuantity = 0
+  let finalTotalToday = 0
+  let finalQuantityToday = 0
 
   const [order,setOrder] = useState({
     todayOrders : [],
@@ -116,7 +122,7 @@ function ViewOrder() {
             <div className='todaysSale section'>
               <h4>Today's Sale - <strong>{output}</strong></h4>
               <div className='divider'></div>
-                <table className='striped responsive'>
+              <table className='striped responsive'>
                   <thead>
                     <tr>
                       <th>Item Name</th>
@@ -127,24 +133,37 @@ function ViewOrder() {
                   </thead>
 
                   <tbody>
-                  {order.todayOrders.map((item)=>{
-                      return(
-                          item.orderDetails.map((component)=>{
-                            return(
-                              <tr key={Date.now()}>
-                                <td>{component.itemName}</td>
-                                <td>{component.itemQuantity}</td>
-                                <td>{component.itemPrice}</td>
-                                <td>{item.orderTotal}</td>
-                              </tr>
-                            )
+
+                  {menu.map((menuItem)=>{
+                    finalTotalToday = finalTotalToday + itemTotal
+                    finalQuantityToday = finalQuantityToday + itemQuantity
+                    itemQuantity=0;
+                    itemPrice=0;
+                    itemTotal=0;
+                    return(
+                      <tr key={Date.now()}>
+                        <td>{menuItem}</td>
+                          {order.todayOrders.map((item)=>{
+                            item.orderDetails.map((component)=>{
+                              if(component.itemName == menuItem){
+                                itemQuantity = itemQuantity + component.itemQuantity
+                                itemPrice = itemPrice + component.itemPrice
+                                itemTotal = itemQuantity*itemPrice
+                              }
                             })
-                    )})}
+                          })
+                          }
+                        <td>{itemQuantity}</td>
+                        <td>{itemPrice}</td>
+                        <td>{itemTotal}</td>
+                      </tr>
+                    )
+                  })}
                     <tr>
                       <td>Total </td>
+                      <td>{finalQuantityToday+itemQuantity}</td>
                       <td></td>
-                      <td></td>
-                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
+                      <td>{finalTotalToday+itemTotal}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -166,23 +185,20 @@ function ViewOrder() {
 
                   <tbody>
                   {menu.map((menuItem)=>{
+                    finalTotal = finalTotal + itemTotal
+                    finalQuantity = finalQuantity + itemQuantity
+                    itemQuantity=0;
+                    itemPrice=0;
+                    itemTotal=0;
                     return(
                       <tr key={Date.now()}>
                         <td>{menuItem}</td>
                           {order.prevWeekOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
-                              console.log(component.itemName,menuItem)
                               if(component.itemName == menuItem){
-                                console.log("if above same then dekho")
                                 itemQuantity = itemQuantity + component.itemQuantity
                                 itemPrice = itemPrice + component.itemPrice
                                 itemTotal = itemQuantity*itemPrice
-                                found = true
-                              }
-                              else if(!found){
-                                itemQuantity = 0
-                                itemPrice = 0
-                                itemTotal = 0
                               }
                             })
                           })
@@ -195,9 +211,9 @@ function ViewOrder() {
                   })}
                     <tr>
                       <td>Total </td>
+                      <td>{finalQuantity+itemQuantity}</td>
                       <td></td>
-                      <td></td>
-                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
+                      <td>{finalTotal+itemTotal}</td>
                     </tr>
                   </tbody>
                 </table>
