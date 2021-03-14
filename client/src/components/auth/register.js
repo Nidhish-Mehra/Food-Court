@@ -6,7 +6,9 @@ function Register() {
     const history =useHistory()
     const [name,setName] = useState("")
     const [password,setPassword] = useState("")
+    const [loading,setLoading] = useState(false)
     const createUser = ()=>{
+        setLoading(true)
         fetch("/signup",{
             method:"post",
             headers:{
@@ -18,6 +20,7 @@ function Register() {
             })
         }).then(res=>res.json())
         .then(data=>{
+            setLoading(false)
             if(data.error){
                 M.toast({html:data.error, classes:"#c62828 red darken-3"})
             }
@@ -31,23 +34,23 @@ function Register() {
     }
     return (
       <div className="card" style={{maxWidth:'500px', padding: '10px' ,margin: '200px auto', textAlign: 'center'}}>
-          <input 
-          placeholder="name" 
-          type="text" 
-          value={name} 
+          <input
+          placeholder="name"
+          type="text"
+          value={name}
           onChange={(e)=>{
               setName(e.target.value)
             }}
           />
-          <input 
-          placeholder="password" 
+          <input
+          placeholder="password"
           type="password"
-          value={password} 
+          value={password}
           onChange={(e)=>{
               setPassword(e.target.value)
             }}
           />
-          <button className="waves-effect waves-light btn large-btn"
+          <button className={loading? 'waves-effect waves-light btn large-btn disabled' : 'waves-effect waves-light btn large-btn'}
           onClick={()=>createUser()}
           >
               Register
@@ -55,5 +58,5 @@ function Register() {
       </div>
     );
   }
-  
+
   export default Register;

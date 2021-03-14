@@ -8,7 +8,9 @@ function Login() {
           const history =useHistory()
           const [name,setName] = useState("")
           const [password,setPassword] = useState("")
+          const [loading,setLoading] = useState(false)
           const signInUser = ()=>{
+              setLoading(true)
               fetch("/signin",{
                   method:"post",
                   headers:{
@@ -20,6 +22,7 @@ function Login() {
                   })
               }).then(res=>res.json())
               .then(data=>{
+                    setLoading(false)
                   if(data.error){
                       M.toast({html:data.error, classes:"#c62828 red darken-3"})
                   }
@@ -40,6 +43,7 @@ function Login() {
               type="text"
               value={name}
               autoComplete='off'
+              required
               onChange={(e)=>{
                   setName(e.target.value)
                 }}
@@ -49,11 +53,12 @@ function Login() {
               type="password"
               value={password}
               autoComplete='off'
+              required
               onChange={(e)=>{
                   setPassword(e.target.value)
                 }}
               />
-              <button className="waves-effect waves-light btn large-btn"
+              <button className={loading? 'waves-effect waves-light btn large-btn disabled' : 'waves-effect waves-light btn large-btn'}
               onClick={()=>signInUser()}
               >
                   Sign IN

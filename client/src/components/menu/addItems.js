@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import M from 'materialize-css'
-import { useHistory } from 'react-router-dom'
 
 function AddItems() {
     const [menu,setMenu] = useState([])
@@ -25,6 +24,7 @@ function AddItems() {
 
     const createItem = async()=>{
         try{
+            setLoading(true)
             const res = await fetch('/createMenuItem',{
                 method:'post',
                 headers:{
@@ -37,6 +37,7 @@ function AddItems() {
                 })
             })
             const data = await res.json()
+            setLoading(false)
             if(data.error){
                 M.toast({html:data.error, classes:'#c62828 red darken-3'})
             }
@@ -44,7 +45,6 @@ function AddItems() {
                 setMenu((prevState)=>{
                     return [...prevState,data]
                 })
-                console.log(menu)
                 M.toast({html: 'Menu Item Created Successfully', classes:'#43a047 green darken-1'})
             }
         }catch(error){
@@ -65,12 +65,12 @@ function AddItems() {
                 })
             })
             const data = await res.json()
+            setLoading(false)
             if(data.error){
                 M.toast({html:data.error, classes:'#c62828 red darken-3'})
             }
             else{
                 setMenu(data)
-                setLoading(false)
                 M.toast({html: 'Item Deleted Successfully', classes:'#43a047 green darken-1'})
             }
         }catch(error){
@@ -114,7 +114,7 @@ function AddItems() {
                             />
                     </div>
                     <div className='input-field col s12'>
-                    <button className='blue btn'
+                    <button className={loading ? 'btn blue large-btn disabled' : 'btn blue large-btn' }
                             onClick={()=>createItem()}
                             >
                                 Add

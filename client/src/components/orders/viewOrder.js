@@ -95,7 +95,6 @@ function ViewOrder() {
                 <table className='striped responsive'>
                   <thead>
                     <tr>
-                      <th>Customer Name</th>
                       <th>Item Name</th>
                       <th>Item Quantity</th>
                       <th>Item Price</th>
@@ -109,7 +108,6 @@ function ViewOrder() {
                           item.orderDetails.map((component)=>{
                             return(
                               <tr key={Date.now()}>
-                                <td>{item.orderedBy}</td>
                                 <td>{component.itemName}</td>
                                 <td>{component.itemQuantity}</td>
                                 <td>{component.itemPrice}</td>
@@ -120,7 +118,6 @@ function ViewOrder() {
                     )})}
                     <tr>
                       <td>Total </td>
-                      <td></td>
                       <td></td>
                       <td></td>
                       <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>

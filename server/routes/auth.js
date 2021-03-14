@@ -5,12 +5,12 @@ const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const { JWT_KEY } = require('../keys')
-const requireSignin = require('../middleware/requireSignin')
+const {requireSignin,validateUser} = require('../middleware')
 const { signup,signin } = require('../controllers/auths')
 
-router.post('/signin',signin)
+router.post('/signin',validateUser,signin)
 
-router.post('/signup',signup)
+router.post('/signup',validateUser,signup)
 
 
 
