@@ -2,11 +2,18 @@ import { useState,useEffect } from 'react';
 import M from 'materialize-css'
 
 function PlaceOrder() {
-    const [menu,setMenu] = useState([])
-    const [order,setOrder] = useState([])
-    const [value,setValue] = useState(0)
-
-    const getMenuItems = async (currentTime)=>{
+    //const [menu,setMenu] = useState([])
+    //const [order,setOrder] = useState([])
+    //const [value,setValue] = useState(0)
+    const [orderedBy,setOrderedBy] = useState()
+    const [sandwich,setSandwich] = useState(0)
+    const [coffee,setCoffee] = useState(0)
+    const [poha,setPoha] = useState(0)
+    const [upma,setUpma] = useState(0)
+    const [tea,setTea] = useState(0)
+    const [BreadButterJam,setBreadButterJam] = useState(0)
+ 
+    /*const getMenuItems = async (currentTime)=>{
         try{
             const response = await fetch('/getMenuItems')
              const data = await response.json()
@@ -54,7 +61,7 @@ function PlaceOrder() {
 
     useEffect(()=>{
         getMenuItems();
-    },[])
+    },[])*/
 
     return (
         <>
@@ -73,27 +80,40 @@ function PlaceOrder() {
                 </div>
             </div>
         </div>
+        
         <div className='container'>
             <div className='row'>
             <h4>All Items</h4>
             <div className='divider'></div>
-                <div className='section'>
-                    {menu.map((item)=>{
-                        return(
-                                <div className='col s3' key={item._id}>
-                                <div className='card-panel' key={item._id}>
-                                    <div className='row'>
-                                        <div className='col s6'>
-                                            <h6>{item.itemName} ₹{item.itemPrice}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })}
+              <div className='section'>
+
+
+                <div className="row">
+                    <div className="col s12 m6">
+                        <div style={{padding:"20px",textAlign:"center"}} className="card">
+                            <span style={{margin:"5px"}} className="card-title">Sandwich</span>
+                            <span style={{margin:"5px"}} className="card-title">₹30</span>
+                            <span style={{marginLeft:"100px"}} className="card-title">Pcs. {sandwich}</span>
+                            <a className="btn-floating halfway-fab waves-effect waves-light red left">
+                                <i className="material-icons" 
+                                onClick={()=>{
+                                    if(sandwich>0){
+                                        setSandwich(sandwich-1)
+                                    }
+                                    }}>
+                                    arrow_drop_down
+                                </i>
+                            </a>
+                            <a className="btn-floating halfway-fab waves-effect waves-light green">
+                                <i className="material-icons" onClick={()=>{setSandwich(sandwich+1)}}>arrow_drop_up</i>
+                            </a>
+                        </div>
+                        </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     );
   }

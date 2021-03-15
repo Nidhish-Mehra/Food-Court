@@ -1,26 +1,26 @@
 const mongoose = require('mongoose')
-const {ObjectId} = mongoose.Schema.Types
 const orderSchema = new mongoose.Schema({
     orderedBy:{
         type:String,
         required:true
     },
-    orderDetails:[
-        {
-            itemName:{
-                type:String,
-            },
-            itemPrice:{
-                type:Number,
-            },
-            itemQuantity:{
-                type:Number
-            }
-        }
-    ],
-    total:{
-        type:Number,
-        required:true
+    sandwich:{
+        type:Number
+    },
+    coffee:{
+        type:Number
+    },
+    poha:{
+        type:Number
+    },
+    upma:{
+        type:Number
+    },
+    tea:{
+        type:Number
+    },
+    BreadButterJam:{
+        type:Number
     },
     orderDate:{
         type:Date,
