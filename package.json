@@ -1,25 +1,24 @@
 {
-  "name": "food-court",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"concurrently \"cd server && npm run start\" \"cd client && npm start\" "
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build":"cd client && npm run build",
+    "install-client":"cd client && npm install",
+    "heroku-postbuild":"npm run install-client && npm run build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Nidhish-Mehra/Food-Court.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Nidhish-Mehra/Food-Court/issues"
-  },
-  "homepage": "https://github.com/Nidhish-Mehra/Food-Court#readme",
   "dependencies": {
-    "concurrently": "^6.0.0",
-    "nodemon": "^2.0.7"
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.19",
+    "sanitize-html": "^2.3.2"
   }
 }

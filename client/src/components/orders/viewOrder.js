@@ -120,7 +120,7 @@ function ViewOrder() {
                             item.orderDetails.map((component)=>{
                               if(component.itemName == menuItem){
                                 itemQuantityTen = itemQuantityTen + component.itemQuantity
-                                itemPriceTen = itemPriceTen + component.itemPrice
+                                itemPriceTen = component.itemPrice
                                 itemTotalTen = itemQuantityTen*itemPriceTen
                               }
                             });
@@ -174,7 +174,7 @@ function ViewOrder() {
                             item.orderDetails.map((component)=>{
                               if(component.itemName == menuItem){
                                 itemQuantityToday = itemQuantityToday + component.itemQuantity
-                                itemPriceToday = itemPriceToday + component.itemPrice
+                                itemPriceToday = component.itemPrice
                                 itemTotalToday = itemQuantityToday*itemPriceToday
                               }
                             })
@@ -224,7 +224,7 @@ function ViewOrder() {
                             item.orderDetails.map((component)=>{
                               if(component.itemName == menuItem){
                                 itemQuantityWeek = itemQuantityWeek + component.itemQuantity
-                                itemPriceWeek = itemPriceWeek + component.itemPrice
+                                itemPriceWeek = component.itemPrice
                                 itemTotalWeek = itemQuantityWeek*itemPriceWeek
                               }
                             })
