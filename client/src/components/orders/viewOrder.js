@@ -13,13 +13,22 @@ function ViewOrder() {
   const output = month  + '\n'+ day  + ',' + year;
 
   let totalPrice=0 ;
-  let itemQuantity=0 ;
-  let itemPrice=0 ;
-  let itemTotal=0 ;
-  let finalTotal = 0
-  let finalQuantity = 0
+  let itemQuantityTen=0 ;
+  let itemPriceTen=0 ;
+  let itemTotalTen=0 ;
+  let itemQuantityToday=0 ;
+  let itemPriceToday=0 ;
+  let itemTotalToday=0 ;
+  let itemQuantityWeek=0 ;
+  let itemPriceWeek=0 ;
+  let itemTotalWeek=0 ;
+  let finalTotalTen = 0
+  let finalQuantityTen = 0
   let finalTotalToday = 0
   let finalQuantityToday = 0
+  let finalTotalWeek = 0
+  let finalQuantityWeek = 0
+  let itemOrderedBy = ''
 
   const [order,setOrder] = useState({
     todayOrders : [],
@@ -31,21 +40,24 @@ function ViewOrder() {
 
   const getOrders = async()=>{
       try{
-        const res = await fetch("/getOrders",{
-          method:"get",
-          headers:{
-            "Content-Type":"application/json"
+
+          const res = await fetch("/getOrders",{
+            method:"get",
+            headers:{
+              "Content-Type":"application/json"
+            }
+          })
+          const data = await res.json()
+          if(data.error){
+            M.toast({html:data.error, classes:"#c62828 red darken-3"})
           }
-        })
-        const data = await res.json()
-        console.log(data)
-        if(data.error){
-          M.toast({html:data.error, classes:"#c62828 red darken-3"})
-        }
-        else{
-          setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
-          M.toast({html: "Retrived Orders Successfully", classes:"#43a047 green darken-1"})
-        }
+          else{
+            setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
+            M.toast({html: "Retrived Orders Successfully", classes:"#43a047 green darken-1"})
+          }
+
+        console.log(order)
+        getMenuItems()
       }
       catch(error){
         console.log(error)
@@ -70,8 +82,7 @@ function ViewOrder() {
  }
 
   useEffect(()=>{
-    getOrders()
-    getMenuItems()
+    getOrders();
   },[])
 
   return (
@@ -96,11 +107,11 @@ function ViewOrder() {
                   <tbody>
 
                   {menu.map((menuItem)=>{
-                    finalTotalToday = finalTotalToday + itemTotal
-                    finalQuantityToday = finalQuantityToday + itemQuantity
-                    itemQuantity=0;
-                    itemPrice=0;
-                    itemTotal=0;
+                    finalTotalTen = finalTotalTen + itemTotalTen
+                    finalQuantityTen = finalQuantityTen + itemQuantityTen
+                    itemQuantityTen=0;
+                    itemPriceTen=0;
+                    itemTotalTen=0;
                     console.log(order)
                     return(
                       <tr key={Date.now()}>
@@ -108,26 +119,27 @@ function ViewOrder() {
                           {order.tenMinuteOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
                               if(component.itemName == menuItem){
-                                itemQuantity = itemQuantity + component.itemQuantity
-                                itemPrice = itemPrice + component.itemPrice
-                                itemTotal = itemQuantity*itemPrice
+                                itemQuantityTen = itemQuantityTen + component.itemQuantity
+                                itemPriceTen = itemPriceTen + component.itemPrice
+                                itemTotalTen = itemQuantityTen*itemPriceTen
                               }
                             });
-                            return(<td>{item.orderedBy}</td>)
-                          })
                           }
-                        <td>{itemQuantity}</td>
-                        <td>{itemPrice}</td>
-                        <td>{itemTotal}</td>
+                          )
+                          }
+                        <td>{itemOrderedBy}</td>
+                        <td>{itemQuantityTen}</td>
+                        <td>{itemPriceTen?itemPriceTen:'-'}</td>
+                        <td>{itemTotalTen}</td>
                       </tr>
                     )
                   })}
                     <tr>
                       <td>Total </td>
                       <td></td>
-                      <td>{finalQuantityToday+itemQuantity}</td>
+                      <td>{finalQuantityTen+itemQuantityTen}</td>
                       <td></td>
-                      <td>{finalTotalToday+itemTotal}</td>
+                      <td>{finalTotalTen+itemTotalTen}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -150,35 +162,35 @@ function ViewOrder() {
                   <tbody>
 
                   {menu.map((menuItem)=>{
-                    finalTotalToday = finalTotalToday + itemTotal
-                    finalQuantityToday = finalQuantityToday + itemQuantity
-                    itemQuantity=0;
-                    itemPrice=0;
-                    itemTotal=0;
+                    finalTotalToday = finalTotalToday + itemTotalToday
+                    finalQuantityToday = finalQuantityToday + itemQuantityToday
+                    itemQuantityToday=0;
+                    itemPriceToday=0;
+                    itemTotalToday=0;
                     return(
                       <tr key={Date.now()}>
                         <td>{menuItem}</td>
                           {order.todayOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
                               if(component.itemName == menuItem){
-                                itemQuantity = itemQuantity + component.itemQuantity
-                                itemPrice = itemPrice + component.itemPrice
-                                itemTotal = itemQuantity*itemPrice
+                                itemQuantityToday = itemQuantityToday + component.itemQuantity
+                                itemPriceToday = itemPriceToday + component.itemPrice
+                                itemTotalToday = itemQuantityToday*itemPriceToday
                               }
                             })
                           })
                           }
-                        <td>{itemQuantity}</td>
-                        <td>{itemPrice}</td>
-                        <td>{itemTotal}</td>
+                        <td>{itemQuantityToday}</td>
+                        <td>{itemPriceToday?itemPriceToday:'-'}</td>
+                        <td>{itemTotalToday}</td>
                       </tr>
                     )
                   })}
                     <tr>
                       <td>Total </td>
-                      <td>{finalQuantityToday+itemQuantity}</td>
+                      <td>{finalQuantityToday+itemQuantityToday}</td>
                       <td></td>
-                      <td>{finalTotalToday+itemTotal}</td>
+                      <td>{finalTotalToday+itemTotalToday}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -200,35 +212,35 @@ function ViewOrder() {
 
                   <tbody>
                   {menu.map((menuItem)=>{
-                    finalTotal = finalTotal + itemTotal
-                    finalQuantity = finalQuantity + itemQuantity
-                    itemQuantity=0;
-                    itemPrice=0;
-                    itemTotal=0;
+                    finalTotalWeek = finalTotalWeek + itemTotalWeek
+                    finalQuantityWeek = finalQuantityWeek + itemQuantityWeek
+                    itemQuantityWeek=0;
+                    itemPriceWeek=0;
+                    itemTotalWeek=0;
                     return(
                       <tr key={Date.now()}>
                         <td>{menuItem}</td>
                           {order.prevWeekOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
                               if(component.itemName == menuItem){
-                                itemQuantity = itemQuantity + component.itemQuantity
-                                itemPrice = itemPrice + component.itemPrice
-                                itemTotal = itemQuantity*itemPrice
+                                itemQuantityWeek = itemQuantityWeek + component.itemQuantity
+                                itemPriceWeek = itemPriceWeek + component.itemPrice
+                                itemTotalWeek = itemQuantityWeek*itemPriceWeek
                               }
                             })
                           })
                           }
-                        <td>{itemQuantity}</td>
-                        <td>{itemPrice}</td>
-                        <td>{itemTotal}</td>
+                        <td>{itemQuantityWeek}</td>
+                        <td>{itemPriceWeek}</td>
+                        <td>{itemTotalWeek}</td>
                       </tr>
                     )
                   })}
                     <tr>
                       <td>Total </td>
-                      <td>{finalQuantity+itemQuantity}</td>
+                      <td>{finalQuantityWeek+itemQuantityWeek}</td>
                       <td></td>
-                      <td>{finalTotal+itemTotal}</td>
+                      <td>{finalTotalWeek+itemTotalWeek}</td>
                     </tr>
                   </tbody>
                 </table>
