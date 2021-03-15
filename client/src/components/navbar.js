@@ -9,7 +9,7 @@ function Navbar() {
       return[
         <li><Link to="/placeOrder">Place Order</Link></li>,
         <li><Link to="/viewOrder">Show Orders</Link></li>,
-        <li><Link to="/addItems">Add Items</Link></li>,
+        //<li><Link to="/addItems">Add Items</Link></li>,
         <li><Link to="/register">Register New User</Link></li>,
         <li><Link to="/" onClick={()=>{
           localStorage.clear()

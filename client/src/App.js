@@ -1,4 +1,4 @@
-import {useEffect,useReducer,createContext} from 'react';
+import {useEffect,useReducer,createContext, useContext} from 'react';
 import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom'
 import Navbar from './components/navbar'
 import Login from './components/auth/login';
@@ -12,10 +12,13 @@ export const UserContext = createContext()
 
 const Routing = ()=>{
   const history = useHistory()
-  useEffect(()=>{
+
     const PresentToken = localStorage.getItem("jwt")
-    if(PresentToken){
-      history.push('/placeOrder')
+    const {state,dispatch} = useContext(UserContext)
+    useEffect(()=>{
+      if(PresentToken){
+        dispatch({type:"USER",payload:PresentToken})
+        history.push('/placeOrder')
     }else{
       history.push('/')
     }
