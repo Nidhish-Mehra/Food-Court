@@ -38,6 +38,7 @@ function ViewOrder() {
           }
         })
         const data = await res.json()
+        console.log(data)
         if(data.error){
           M.toast({html:data.error, classes:"#c62828 red darken-3"})
         }
@@ -81,41 +82,54 @@ function ViewOrder() {
               <div className='recentOrders section'>
                 <h4>Orders in last - <strong>10 minutes</strong></h4>
                 <div className='divider'></div>
-                  <table className='striped responsive'>
-                    <thead>
-                      <tr>
-                        <th>Customer Name</th>
-                        <th>Item Name</th>
-                        <th>Item Quantity</th>
-                        <th>Item Price</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
+                <table className='striped responsive'>
+                  <thead>
+                    <tr>
+                      <th>Item Name</th>
+                      <th>Customer Name</th>
+                      <th>Item Quantity</th>
+                      <th>Item Price</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
 
-                    <tbody>
-                    {order.tenMinuteOrders.map((item)=>{
-                      return(
-                          item.orderDetails.map((component)=>{
-                            return(
-                              <tr key={Date.now()}>
-                                <td>{item.orderedBy}</td>
-                                <td>{component.itemName}</td>
-                                <td>{component.itemQuantity}</td>
-                                <td>{component.itemPrice}</td>
-                                <td>{item.orderTotal}</td>
-                              </tr>
-                            )
-                            })
-                    )})}
+                  <tbody>
+
+                  {menu.map((menuItem)=>{
+                    finalTotalToday = finalTotalToday + itemTotal
+                    finalQuantityToday = finalQuantityToday + itemQuantity
+                    itemQuantity=0;
+                    itemPrice=0;
+                    itemTotal=0;
+                    return(
+                      <tr key={Date.now()}>
+                        <td>{menuItem}</td>
+                          {order.tenMinuteOrders.map((item)=>{
+                            item.orderDetails.map((component)=>{
+                              if(component.itemName == menuItem){
+                                itemQuantity = itemQuantity + component.itemQuantity
+                                itemPrice = itemPrice + component.itemPrice
+                                itemTotal = itemQuantity*itemPrice
+                              }
+                            });
+                            return(<td>{item.orderedBy}</td>)
+                          })
+                          }
+                        <td>{itemQuantity}</td>
+                        <td>{itemPrice}</td>
+                        <td>{itemTotal}</td>
+                      </tr>
+                    )
+                  })}
                     <tr>
                       <td>Total </td>
                       <td></td>
+                      <td>{finalQuantityToday+itemQuantity}</td>
                       <td></td>
-                      <td></td>
-                      <td>{order.length>0 ? order.map((item)=>totalPrice = totalPrice + item.orderTotal) : totalPrice}</td>
+                      <td>{finalTotalToday+itemTotal}</td>
                     </tr>
-                    </tbody>
-                  </table>
+                  </tbody>
+                </table>
               </div>
           </div>
           <div className='col s12'>
