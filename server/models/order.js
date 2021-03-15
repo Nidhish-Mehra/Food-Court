@@ -19,7 +19,7 @@ const orderSchema = new mongoose.Schema({
     tea:{
         type:Number
     },
-    BreadButterJam:{
+    breadButterJam:{
         type:Number
     },
     orderDate:{

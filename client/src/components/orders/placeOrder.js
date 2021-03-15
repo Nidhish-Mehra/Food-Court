@@ -5,7 +5,7 @@ function PlaceOrder() {
     //const [menu,setMenu] = useState([])
     //const [order,setOrder] = useState([])
     //const [value,setValue] = useState(0)
-    const [orderedBy,setOrderedBy] = useState()
+    const [orderedBy,setOrderedBy] = useState("")
     const [sandwich,setSandwich] = useState(0)
     const [coffee,setCoffee] = useState(0)
     const [poha,setPoha] = useState(0)
@@ -73,8 +73,12 @@ function PlaceOrder() {
                     <div className='input-field col s12'>
                         <label htmlFor='custName'>Customer Name</label>
                         <input
+                            value={orderedBy}
                             id='itemName'
                             type='text'
+                            onChange={(e)=>{
+                                setOrderedBy(e.target.value)
+                            }}
                             />
                     </div>
                 </div>
@@ -94,7 +98,7 @@ function PlaceOrder() {
                             <span style={{margin:"5px"}} className="card-title">Sandwich</span>
                             <span style={{margin:"5px"}} className="card-title">₹30</span>
                             <span style={{marginLeft:"100px"}} className="card-title">Pcs. {sandwich}</span>
-                            <a className="btn-floating halfway-fab waves-effect waves-light red left">
+                            <a className="btn-floating halfway-fab  waves-light red left">
                                 <i className="material-icons" 
                                 onClick={()=>{
                                     if(sandwich>0){
@@ -104,13 +108,118 @@ function PlaceOrder() {
                                     arrow_drop_down
                                 </i>
                             </a>
-                            <a className="btn-floating halfway-fab waves-effect waves-light green">
+                            <a className="btn-floating halfway-fab  waves-light green">
                                 <i className="material-icons" onClick={()=>{setSandwich(sandwich+1)}}>arrow_drop_up</i>
                             </a>
                         </div>
                         </div>
+
+                    <div className="col s12 m6">
+                        <div style={{padding:"20px",textAlign:"center"}} className="card">
+                            <span style={{margin:"5px"}} className="card-title">coffee</span>
+                            <span style={{margin:"5px"}} className="card-title">₹20</span>
+                            <span style={{marginLeft:"100px"}} className="card-title">Pcs. {coffee}</span>
+                            <a className="btn-floating halfway-fab  waves-light red left">
+                                <i className="material-icons" 
+                                onClick={()=>{
+                                    if(coffee>0){
+                                        setCoffee(coffee-1)
+                                    }
+                                    }}>
+                                    arrow_drop_down
+                                </i>
+                            </a>
+                            <a className="btn-floating halfway-fab  waves-light green">
+                                <i className="material-icons" onClick={()=>{setCoffee(coffee+1)}}>arrow_drop_up</i>
+                            </a>
+                        </div>
                         </div>
 
+                    <div className="col s12 m6">
+                        <div style={{padding:"20px",textAlign:"center"}} className="card">
+                            <span style={{margin:"5px"}} className="card-title">poha</span>
+                            <span style={{margin:"5px"}} className="card-title">₹20</span>
+                            <span style={{marginLeft:"100px"}} className="card-title">Pcs. {poha}</span>
+                            <a className="btn-floating halfway-fab  waves-light red left">
+                                <i className="material-icons" 
+                                onClick={()=>{
+                                    if(poha>0){
+                                        setPoha(poha-1)
+                                    }
+                                    }}>
+                                    arrow_drop_down
+                                </i>
+                            </a>
+                            <a className="btn-floating halfway-fab  waves-light green">
+                                <i className="material-icons" onClick={()=>{setPoha(poha+1)}}>arrow_drop_up</i>
+                            </a>
+                        </div>
+                        </div>
+
+                    <div className="col s12 m6">
+                        <div style={{padding:"20px",textAlign:"center"}} className="card">
+                            <span style={{margin:"5px"}} className="card-title">Upma</span>
+                            <span style={{margin:"5px"}} className="card-title">₹20</span>
+                            <span style={{marginLeft:"100px"}} className="card-title">Pcs. {upma}</span>
+                            <a className="btn-floating halfway-fab  waves-light red left">
+                                <i className="material-icons" 
+                                onClick={()=>{
+                                    if(upma>0){
+                                        setUpma(upma-1)
+                                    }
+                                    }}>
+                                    arrow_drop_down
+                                </i>
+                            </a>
+                            <a className="btn-floating halfway-fab  waves-light green">
+                                <i className="material-icons" onClick={()=>{setUpma(upma+1)}}>arrow_drop_up</i>
+                            </a>
+                        </div>
+                        </div>
+
+                    <div className="col s12 m6">
+                        <div style={{padding:"20px",textAlign:"center"}} className="card">
+                            <span style={{margin:"5px"}} className="card-title">Tea</span>
+                            <span style={{margin:"5px"}} className="card-title">₹10</span>
+                            <span style={{marginLeft:"100px"}} className="card-title">Pcs. {tea}</span>
+                            <a className="btn-floating halfway-fab  waves-light red left">
+                                <i className="material-icons" 
+                                onClick={()=>{
+                                    if(tea>0){
+                                        setTea(tea-1)
+                                    }
+                                    }}>
+                                    arrow_drop_down
+                                </i>
+                            </a>
+                            <a className="btn-floating halfway-fab  waves-light green">
+                                <i className="material-icons" onClick={()=>{setTea(tea+1)}}>arrow_drop_up</i>
+                            </a>
+                        </div>
+                        </div>
+
+                    <div className="col s12 m6">
+                        <div style={{padding:"20px",textAlign:"center"}} className="card">
+                            <span style={{margin:"5px"}} className="card-title">Bread Butter Jam</span>
+                            <span style={{margin:"5px"}} className="card-title">₹20</span>
+                            <span style={{marginLeft:"100px"}} className="card-title">Pcs. {BreadButterJam}</span>
+                            <a className="btn-floating halfway-fab  waves-light red left">
+                                <i className="material-icons" 
+                                onClick={()=>{
+                                    if(BreadButterJam>0){
+                                        setBreadButterJam(BreadButterJam-1)
+                                    }
+                                    }}>
+                                    arrow_drop_down
+                                </i>
+                            </a>
+                            <a className="btn-floating halfway-fab waves-light green">
+                                <i className="material-icons" onClick={()=>{setBreadButterJam(BreadButterJam+1)}}>arrow_drop_up</i>
+                            </a>
+                        </div>
+                        </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
