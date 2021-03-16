@@ -6,7 +6,7 @@ function PlaceOrder() {
     const [menu,setMenu] = useState([])
     const [order,setOrder] = useState([])
     const [value,setValue] = useState(0)
-    const [orderedBy,setOrderedBy] = useState('')
+    const [orderedBy,setOrderedBy] = useState('noUser')
     const [sandwich,setSandwich] = useState(0)
     const [coffee,setCoffee] = useState(0)
     const [poha,setPoha] = useState(0)

@@ -29,7 +29,7 @@ module.exports.createOrder = (req,res)=>{
     const date = new Date();
     const indianTimeOffset = 5*60*60*1000 + 0.5*60*60*1000
     const orderDate = new Date(date.getTime()+indianTimeOffset);
-    const{ orderedBy='noUser' , orderDetails , total } = req.body
+    const{ orderedBy , orderDetails , total } = req.body
     const newOrder = new Order({
         orderedBy,
         orderDetails,
