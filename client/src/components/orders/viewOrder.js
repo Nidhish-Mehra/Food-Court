@@ -231,7 +231,7 @@ function ViewOrder() {
                           })
                           }
                         <td>{itemQuantityWeek}</td>
-                        <td>{itemPriceWeek}</td>
+                        <td>{itemPriceWeek?itemPriceWeek:'-'}</td>
                         <td>{itemTotalWeek}</td>
                       </tr>
                     )
