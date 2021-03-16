@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const {JWT_KEY} = require('./keys')
 const mongoose = require('mongoose')
 const User = mongoose.model("User")
 const {userSchema,orderSchema,menuItemSchema} = require('./schemas')
@@ -11,7 +10,7 @@ module.exports.requireSignin = (req,res,next)=>{
          return res.status(401).json({error:"You must be signed in"})
      }
      const token = authorization.replace("Bearer ","")
-     jwt.verify(token,JWT_KEY,(error,payload)=>{
+     jwt.verify(token,process.env.JWT_KEY,(error,payload)=>{
          if(error){
              return res.status(401).json({error: "You must be signed in"})
          }

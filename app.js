@@ -2,19 +2,19 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-const PORT = process.env.port || 5000
-const { MONGOURI } = require('./keys')
+const PORT = process.env.port || 8080
 const authRoute = require('./routes/auth')
 const menuItemRoute = require('./routes/menuItem')
 const orderRoute = require('./routes/order')
 const User = require('./models/user')
+require('dotenv').config()
 
 if(process.env.NODE_ENV === 'production'){
     console.log("PRODUCTION")
     app.use(express.static('client/build'));
 }
 
-mongoose.connect(MONGOURI,{
+mongoose.connect(process.env.MONGOURI,{
     useNewUrlParser:true,
     useUnifiedTopology:true
 })
@@ -28,12 +28,13 @@ app.use('/',menuItemRoute)
 app.use('/',orderRoute)
 
 mongoose.connection.on('connected',()=>{
-    console.log("successfully connected to the database")
+    console.log("Database Connection Successfull")
+    console.log("Hi",process.env.NODE_ENV)
 })
 mongoose.connection.on('error',(error)=>{
     console.log("There was an error while connecting to the database",error)
 })
 
 app.listen(PORT,()=>{
-    console.log(`server is running on ${PORT}`)
+    console.log(`Server is running on PORT:${PORT}`)
 })

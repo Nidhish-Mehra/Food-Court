@@ -1,7 +1,6 @@
 const User = require('../models/user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { JWT_KEY } = require('../keys')
 
 module.exports.signup = (req,res)=>{
     const { name, password } = req.body
@@ -47,7 +46,7 @@ module.exports.signin = (req,res)=>{
         .then(Matched=>{
             if(Matched){
                 // res.json({message:"successfully signed in"})
-                const token =jwt.sign({_id:savedUser._id},JWT_KEY)
+                const token =jwt.sign({_id:savedUser._id},process.env.JWT_KEY)
                 res.json({token})
             }
             else{
