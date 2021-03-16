@@ -20,3 +20,18 @@ code {
   width:20%;
   margin: 40px;
 }
+
+.MuiCircularProgress-colorPrimary{
+  color: #2196F3 !important;
+}
+
+.MuiCircularProgress-root{
+  margin-left: 15px;
+  height: 25px!important;
+  width:25px!important;
+}
+
+span.card-title{
+  font-size: 20px!important;
+  font-weight: 300!important;
+}

@@ -33,7 +33,8 @@ function Register() {
         })
     }
     return (
-        <div className="card row" style={{maxWidth:'500px', padding: '10px' ,margin: '200px auto',textAlign:'center'}}>
+        <main>
+            <div className="card row" style={{maxWidth:'500px', padding: '10px' ,margin: '200px auto',textAlign:'center'}}>
         <div className='input-field col s12'>
             <input
                 placeholder='Name'
@@ -60,11 +61,12 @@ function Register() {
         </div>
         <div className='input-field col s12'>
             <button style={{width:'100%'}}
-                className={loading? 'waves-effect waves-light btn large-btn disabled' : 'waves-effect waves-light btn large-btn'}
+                className={loading? 'blue waves-effect waves-light btn large-btn disabled' : 'blue waves-effect waves-light btn large-btn'}
                 onClick={()=>createUser()}>Register
             </button>
         </div>
     </div>
+        </main>
     );
   }
 

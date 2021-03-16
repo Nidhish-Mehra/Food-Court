@@ -124,7 +124,7 @@ function PlaceOrder() {
                     <div className='divider'></div>
                     <div className='section'>
                         <div className="row">
-                            <div className="col s12 m6 l6">
+                            <div className="col s12 m12 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Bread Butter Jam</span>
                                     <span style={{margin:"5px"}} className="card-title">₹20</span>
@@ -144,7 +144,7 @@ function PlaceOrder() {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col s12 m6 l6">
+                            <div className="col s12 m12 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Coffee</span>
                                     <span style={{margin:"5px"}} className="card-title">₹20</span>
@@ -167,7 +167,7 @@ function PlaceOrder() {
 
                             </div>
                         <div className="row">
-                            <div className="col s12 m6 l6">
+                            <div className="col s12 m12 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Poha</span>
                                     <span style={{margin:"5px"}} className="card-title">₹20</span>
@@ -187,7 +187,7 @@ function PlaceOrder() {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col s12 m6 l6">
+                            <div className="col s12 m12 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Sandwich</span>
                                     <span style={{margin:"5px"}} className="card-title">₹30</span>
@@ -210,7 +210,7 @@ function PlaceOrder() {
 
                             </div>
                         <div className="row">
-                            <div className="col s12 m6 l6">
+                            <div className="col s12 m12 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Tea</span>
                                     <span style={{margin:"5px"}} className="card-title">₹10</span>
@@ -230,7 +230,7 @@ function PlaceOrder() {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col s12 m6 l6">
+                            <div className="col s12 m12 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Upma</span>
                                     <span style={{margin:"5px"}} className="card-title">₹20</span>

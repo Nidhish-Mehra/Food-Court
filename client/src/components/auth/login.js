@@ -64,7 +64,7 @@ function Login() {
             </div>
             <div className='input-field col s12'>
                 <button style={{width:'100%'}}
-                    className={loading? 'waves-effect waves-light btn large-btn disabled' : 'waves-effect waves-light btn large-btn'}
+                    className={loading? 'blue waves-effect waves-light btn large-btn disabled' : 'blue waves-effect waves-light btn large-btn'}
                     onClick={()=>signInUser()}>Sign IN
                 </button>
             </div>

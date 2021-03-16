@@ -1,5 +1,7 @@
 import { useState,useEffect } from 'react'
 import M from 'materialize-css'
+import { CircularProgress } from '@material-ui/core';
+
 
 function ViewOrder() {
 
@@ -12,7 +14,6 @@ function ViewOrder() {
 
   const output = month  + '\n'+ day  + ',' + year;
 
-  let totalPrice=0 ;
   let itemQuantityTen=0 ;
   let itemPriceTen=0 ;
   let itemTotalTen=0 ;
@@ -37,27 +38,27 @@ function ViewOrder() {
   })
 
   const [menu,setMenu] = useState([])
+  const [loading,setLoading] = useState(false)
 
   const getOrders = async()=>{
       try{
-
-          const res = await fetch("/getOrders",{
-            method:"get",
-            headers:{
-              "Content-Type":"application/json"
+            setLoading(true)
+            const res = await fetch("/getOrders",{
+              method:"get",
+              headers:{
+                "Content-Type":"application/json"
+              }
+            })
+            const data = await res.json()
+            if(data.error){
+              M.toast({html:data.error, classes:"#c62828 red darken-3"})
             }
-          })
-          const data = await res.json()
-          if(data.error){
-            M.toast({html:data.error, classes:"#c62828 red darken-3"})
-          }
-          else{
-            setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
-            M.toast({html: "Retrived Orders Successfully", classes:"#43a047 green darken-1"})
-          }
-
-        console.log(order)
+            else{
+              setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
+              M.toast({html: "Retrived Orders Successfully", classes:"#43a047 green darken-1"})
+            }
         getMenuItems()
+        setLoading(false)
       }
       catch(error){
         console.log(error)
@@ -83,15 +84,39 @@ function ViewOrder() {
 
   useEffect(()=>{
     getOrders();
+    const intervalId = setInterval(async()=>{
+      setLoading(true)
+      const res = await fetch("/getOrders",{
+        method:"get",
+        headers:{
+          "Content-Type":"application/json"
+        }
+      })
+      const data = await res.json()
+      if(data.error){
+        M.toast({html:data.error, classes:"#c62828 red darken-3"})
+      }
+      else{
+        setOrder({todayOrders : data.todayOrders,tenMinuteOrders : data.tenMinuteOrders,prevWeekOrders : data.prevWeekOrders})
+      }
+      setLoading(false)
+      console.log("Orders fetched")
+    },3000)
+
+    return(()=>{
+      clearInterval(intervalId)
+    })
   },[])
 
   return (
       <>
       <div className='container'>
         <div className='row'>
-        <div className='col s12'>
+          <div className='col s12'>
               <div className='recentOrders section'>
-                <h4>Orders in last - <strong>10 minutes</strong></h4>
+                <h4>Orders in last - <strong>10 minutes</strong>
+                {loading?<CircularProgress />:''}
+                </h4>
                 <div className='divider'></div>
                 <table className='striped responsive'>
                   <thead>
@@ -106,19 +131,18 @@ function ViewOrder() {
 
                   <tbody>
 
-                  {menu.map((menuItem)=>{
+                  {menu.map((menuItem,index)=>{
                     finalTotalTen = finalTotalTen + itemTotalTen
                     finalQuantityTen = finalQuantityTen + itemQuantityTen
                     itemQuantityTen=0;
                     itemPriceTen=0;
                     itemTotalTen=0;
-                    console.log(order)
                     return(
-                      <tr key={Date.now()}>
+                      <tr key={index}>
                         <td>{menuItem}</td>
                           {order.tenMinuteOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
-                              if(component.itemName == menuItem){
+                              if(component.itemName === menuItem){
                                 itemQuantityTen = itemQuantityTen + component.itemQuantity
                                 itemPriceTen = component.itemPrice
                                 itemTotalTen = itemQuantityTen*itemPriceTen
@@ -147,7 +171,8 @@ function ViewOrder() {
           </div>
           <div className='col s12'>
             <div className='todaysSale section'>
-              <h4>Today's Sale - <strong>{output}</strong></h4>
+              <h4>Today's Sale - <strong>{output}</strong>
+              {loading?<CircularProgress />:''}</h4>
               <div className='divider'></div>
               <table className='striped responsive'>
                   <thead>
@@ -161,18 +186,18 @@ function ViewOrder() {
 
                   <tbody>
 
-                  {menu.map((menuItem)=>{
+                  {menu.map((menuItem,index)=>{
                     finalTotalToday = finalTotalToday + itemTotalToday
                     finalQuantityToday = finalQuantityToday + itemQuantityToday
                     itemQuantityToday=0;
                     itemPriceToday=0;
                     itemTotalToday=0;
                     return(
-                      <tr key={Date.now()}>
+                      <tr key={index}>
                         <td>{menuItem}</td>
                           {order.todayOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
-                              if(component.itemName == menuItem){
+                              if(component.itemName === menuItem){
                                 itemQuantityToday = itemQuantityToday + component.itemQuantity
                                 itemPriceToday = component.itemPrice
                                 itemTotalToday = itemQuantityToday*itemPriceToday
@@ -198,7 +223,8 @@ function ViewOrder() {
           </div>
           <div className='col s12'>
             <div className='todaysSale section'>
-              <h4>Sale in last - <strong>7 days</strong></h4>
+              <h4>Sale in last - <strong>7 days</strong>
+              {loading?<CircularProgress />:''}</h4>
               <div className='divider'></div>
               <table className='striped responsive'>
                   <thead>
@@ -211,18 +237,18 @@ function ViewOrder() {
                   </thead>
 
                   <tbody>
-                  {menu.map((menuItem)=>{
+                  {menu.map((menuItem,index)=>{
                     finalTotalWeek = finalTotalWeek + itemTotalWeek
                     finalQuantityWeek = finalQuantityWeek + itemQuantityWeek
                     itemQuantityWeek=0;
                     itemPriceWeek=0;
                     itemTotalWeek=0;
                     return(
-                      <tr key={Date.now()}>
+                      <tr key={index}>
                         <td>{menuItem}</td>
                           {order.prevWeekOrders.map((item)=>{
                             item.orderDetails.map((component)=>{
-                              if(component.itemName == menuItem){
+                              if(component.itemName === menuItem){
                                 itemQuantityWeek = itemQuantityWeek + component.itemQuantity
                                 itemPriceWeek = component.itemPrice
                                 itemTotalWeek = itemQuantityWeek*itemPriceWeek

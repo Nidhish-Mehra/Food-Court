@@ -7,11 +7,11 @@ function Navbar() {
   const renderList = ()=>{
     if(state){
       return[
-        <li><Link to="/placeOrder">Place Order</Link></li>,
-        <li><Link to="/viewOrder">Show Orders</Link></li>,
+        <li key='placeOrder'><Link to="/placeOrder">Place Order</Link></li>,
+        <li key='viewOrder'><Link to="/viewOrder">Show Orders</Link></li>,
         // <li><Link to="/addItems">Add Items</Link></li>,
-        <li><Link to="/register">Register New User</Link></li>,
-        <li><Link to="/" onClick={()=>{
+        <li key='register'><Link to="/register">Register New User</Link></li>,
+        <li key='logout'><Link to="/" onClick={()=>{
           localStorage.clear()
           dispatch({type:"CLEAR"})
         }}>
