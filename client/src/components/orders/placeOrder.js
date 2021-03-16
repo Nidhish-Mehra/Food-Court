@@ -85,7 +85,12 @@ function PlaceOrder() {
             else{
                 M.toast({html: 'Order Created Successfully', classes:'#43a047 green darken-1'})
             }
-
+            setSandwich(0)
+            setPoha(0)
+            setUpma(0)
+            setBreadButterJam(0)
+            setTea(0)
+            setCoffee(0)
             setLoading(false)
             console.log(orderDetails,total)
         }catch(error){
@@ -121,24 +126,47 @@ function PlaceOrder() {
                         <div className="row">
                             <div className="col s12 m6 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
-                                    <span style={{margin:"5px"}} className="card-title">Sandwich</span>
-                                    <span style={{margin:"5px"}} className="card-title">₹30</span>
-                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {sandwich}</span>
+                                    <span style={{margin:"5px"}} className="card-title">Bread Butter Jam</span>
+                                    <span style={{margin:"5px"}} className="card-title">₹20</span>
+                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {breadButterJam}</span>
                                     <a className="btn-floating halfway-fab red left">
                                         <i className="material-icons"
                                             onClick={()=>{
-                                                if(sandwich>0){
-                                                    setSandwich(sandwich-1)
+                                                if(breadButterJam>0){
+                                                    setBreadButterJam(breadButterJam-1)
                                                 }
                                                 }}>
                                                 arrow_drop_down
                                         </i>
                                     </a>
                                     <a className="btn-floating halfway-fab green">
-                                        <i className="material-icons" onClick={()=>{setSandwich(sandwich+1)}}>arrow_drop_up</i>
+                                        <i className="material-icons" onClick={()=>{setBreadButterJam(breadButterJam+1)}}>arrow_drop_up</i>
                                     </a>
                                 </div>
                             </div>
+                            <div className="col s12 m6 l6">
+                                <div style={{padding:"20px",textAlign:"center"}} className="card">
+                                    <span style={{margin:"5px"}} className="card-title">Coffee</span>
+                                    <span style={{margin:"5px"}} className="card-title">₹20</span>
+                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {coffee}</span>
+                                    <a className="btn-floating halfway-fab red left">
+                                        <i className="material-icons"
+                                            onClick={()=>{
+                                                if(coffee>0){
+                                                    setCoffee(coffee-1)
+                                                }
+                                                }}>
+                                                arrow_drop_down
+                                        </i>
+                                    </a>
+                                    <a className="btn-floating halfway-fab green">
+                                        <i className="material-icons" onClick={()=>{setCoffee(coffee+1)}}>arrow_drop_up</i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            </div>
+                        <div className="row">
                             <div className="col s12 m6 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
                                     <span style={{margin:"5px"}} className="card-title">Poha</span>
@@ -159,49 +187,28 @@ function PlaceOrder() {
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col s12 m6 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
-                                    <span style={{margin:"5px"}} className="card-title">Upma</span>
-                                    <span style={{margin:"5px"}} className="card-title">₹20</span>
-                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {upma}</span>
+                                    <span style={{margin:"5px"}} className="card-title">Sandwich</span>
+                                    <span style={{margin:"5px"}} className="card-title">₹30</span>
+                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {sandwich}</span>
                                     <a className="btn-floating halfway-fab red left">
                                         <i className="material-icons"
                                             onClick={()=>{
-                                                if(upma>0){
-                                                    setUpma(upma-1)
+                                                if(sandwich>0){
+                                                    setSandwich(sandwich-1)
                                                 }
                                                 }}>
                                                 arrow_drop_down
                                         </i>
                                     </a>
                                     <a className="btn-floating halfway-fab green">
-                                        <i className="material-icons" onClick={()=>{setUpma(upma+1)}}>arrow_drop_up</i>
+                                        <i className="material-icons" onClick={()=>{setSandwich(sandwich+1)}}>arrow_drop_up</i>
                                     </a>
                                 </div>
                             </div>
-                            <div className="col s12 m6 l6">
-                                <div style={{padding:"20px",textAlign:"center"}} className="card">
-                                    <span style={{margin:"5px"}} className="card-title">Bread Butter Jam</span>
-                                    <span style={{margin:"5px"}} className="card-title">₹20</span>
-                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {breadButterJam}</span>
-                                    <a className="btn-floating halfway-fab red left">
-                                        <i className="material-icons"
-                                            onClick={()=>{
-                                                if(breadButterJam>0){
-                                                    setBreadButterJam(breadButterJam-1)
-                                                }
-                                                }}>
-                                                arrow_drop_down
-                                        </i>
-                                    </a>
-                                    <a className="btn-floating halfway-fab green">
-                                        <i className="material-icons" onClick={()=>{setBreadButterJam(breadButterJam+1)}}>arrow_drop_up</i>
-                                    </a>
-                                </div>
+
                             </div>
-                        </div>
                         <div className="row">
                             <div className="col s12 m6 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
@@ -225,24 +232,25 @@ function PlaceOrder() {
                             </div>
                             <div className="col s12 m6 l6">
                                 <div style={{padding:"20px",textAlign:"center"}} className="card">
-                                    <span style={{margin:"5px"}} className="card-title">Coffe</span>
+                                    <span style={{margin:"5px"}} className="card-title">Upma</span>
                                     <span style={{margin:"5px"}} className="card-title">₹20</span>
-                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {coffee}</span>
+                                    <span style={{marginLeft:"100px"}} className="card-title">Pcs. {upma}</span>
                                     <a className="btn-floating halfway-fab red left">
                                         <i className="material-icons"
                                             onClick={()=>{
-                                                if(coffee>0){
-                                                    setCoffee(coffee-1)
+                                                if(upma>0){
+                                                    setUpma(upma-1)
                                                 }
                                                 }}>
                                                 arrow_drop_down
                                         </i>
                                     </a>
                                     <a className="btn-floating halfway-fab green">
-                                        <i className="material-icons" onClick={()=>{setCoffee(coffee+1)}}>arrow_drop_up</i>
+                                        <i className="material-icons" onClick={()=>{setUpma(upma+1)}}>arrow_drop_up</i>
                                     </a>
                                 </div>
                             </div>
+
                             <div className='col s12 l12 center-align'>
                                 <button className={loading? 'btn blue large disabled orderPlaceButton':'btn blue large orderPlaceButton'} onClick={()=>submitOrder()}>Submit</button>
                             </div>

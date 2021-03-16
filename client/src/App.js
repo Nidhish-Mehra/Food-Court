@@ -1,6 +1,7 @@
 import {useEffect,useReducer,createContext, useContext} from 'react';
 import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom'
 import Navbar from './components/navbar'
+import Footer from './components/footer'
 import Login from './components/auth/login';
 import Register from './components/auth/register';
 import PlaceOrder from './components/orders/placeOrder';
@@ -25,7 +26,7 @@ const Routing = ()=>{
   },[])
   return(
     <Switch>
-          <Route exact path="/">            
+          <Route exact path="/">
               <Login />
           </Route>
           <Route path="/register">
@@ -52,6 +53,7 @@ function App() {
           <BrowserRouter>
               <Navbar />
               <Routing />
+              <Footer />
           </BrowserRouter>
       </UserContext.Provider>
 
