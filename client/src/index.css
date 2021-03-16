@@ -18,7 +18,7 @@ code {
   height: 120px;
 }
 
-.col.s12 > .btn {
+.col.s12 > .orderPlaceButton {
   width: 30%;
   margin: 40px;
 }

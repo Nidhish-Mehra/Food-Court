@@ -244,7 +244,7 @@ function PlaceOrder() {
                                 </div>
                             </div>
                             <div className='col s12 l12 center-align'>
-                                <button className={loading? 'btn blue large disbaled':'btn blue large'} onClick={()=>submitOrder()}>Submit</button>
+                                <button className={loading? 'btn blue large disabled orderPlaceButton':'btn blue large orderPlaceButton'} onClick={()=>submitOrder()}>Submit</button>
                             </div>
                         </div>
                     </div>
