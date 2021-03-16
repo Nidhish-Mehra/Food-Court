@@ -17,3 +17,8 @@ code {
 .card-panel {
   height: 120px;
 }
+
+.col.s12 > .btn {
+  width: 30%;
+  margin: 40px;
+}

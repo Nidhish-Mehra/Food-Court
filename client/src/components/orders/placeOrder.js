@@ -243,7 +243,7 @@ function PlaceOrder() {
                                     </a>
                                 </div>
                             </div>
-                            <div className='col s12 l12'>
+                            <div className='col s12 l12 center-align'>
                                 <button className={loading? 'btn blue large disbaled':'btn blue large'} onClick={()=>submitOrder()}>Submit</button>
                             </div>
                         </div>
