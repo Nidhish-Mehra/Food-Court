@@ -2,9 +2,9 @@
 
 **Screenshots**
 
-![Alt text](/screenshots/snap1.png "Place Order")
-![Alt text](/screenshots/snap2.png "View Orders")
-![Alt text](/screenshots/snap3.png "View Orders")
+![Alt text](/screenshots/snap1.png?raw=true "Place Order")
+![Alt text](/screenshots/snap2.png?raw=true "View Orders")
+![Alt text](/screenshots/snap3.png?raw=true "View Orders")
 
 
 The main objective of the Canteen Management System is to manage the details of Canteen, Sales, Orders, Items, Products. It manages all the information about Canteen, Food, Products, Canteen. The project is totally built at administrative end and thus only the administrator is guaranteed the access. The purpose of the project is to build an application program to reduce the manual work for managing the Canteen, Sales, Food, Orders. It tracks all the details about the Orders, Items, Products.
